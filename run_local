@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from gophersnake import gophersnake as gs
 
 gs.main()

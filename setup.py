@@ -6,4 +6,9 @@ setup(
     description='A gopher server written in Python',
     license='MIT',
     packages=['gophersnake'],
+    entry_points={
+        'console_scripts': [
+            'gophersnake=gophersnake.gophersnake:main',
+        ],
+    },
 )

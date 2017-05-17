@@ -2,9 +2,33 @@
 
 A gopher client written in Python.
 
+# Installation
+
+This requires Python 3, but no outside dependencies.
+
+We recommend you install into a virtualenv:
+
+    # virtualenv -p python3.6 venv
+    ... ... ...
+    (venv) # pip install .
+    ... ... ...
+    (venv) #
+
+You should then have the command `gophersnake` installed on your (virtualenv) path:
+
+    (venv) # gophersnake
+    Process started...
+    Connecting to localhost:7070
+
+Alternatively, if you don't want to install it you can just use the `run_local` command:
+
+    # ./run_local
+    Process started...
+    Connecting to localhost:7070
+
 # Standards
 
-The gopher protocol is described in [IETF RFC-1436](https://tools.ietf.org/html/rfc1436). Gopher snake supports elements 0 (file) and 1 (directory).
+The gopher protocol is described in [IETF RFC-1436](https://tools.ietf.org/html/rfc1436). Gopher snake supports elements 0 (file) and 1 (directory). All other entity types are ignored.
 
 # Clients
 
