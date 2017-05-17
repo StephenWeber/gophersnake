@@ -6,6 +6,7 @@ setup(
     description='A gopher server written in Python',
     license='MIT',
     packages=['gophersnake'],
+    install_requires=['pyyaml'],
     entry_points={
         'console_scripts': [
             'gophersnake=gophersnake.gophersnake:main',

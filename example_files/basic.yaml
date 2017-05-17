@@ -1,0 +1,31 @@
+---
+-
+  type: GopherFile
+  name: Hello to my server
+  path: hello
+  content: Text for the hello file
+-
+  type: GopherDir
+  name: Directory of Files
+  path: Subdir
+  content:
+    -
+      type: GopherFile
+      name: Subfile A
+      path: Subdir:A
+      content: All Alligators Appreciate Apples
+    -
+      type: GopherFile
+      name: Subfile B
+      path: Subdir:B
+      content: Buffalo Buffalo Buffalo Buffalo
+    -
+      type: GopherDir
+      name: Subdir C
+      path: C Deck
+      content:
+        -
+          type: GopherFile
+          name: Master of None
+          path: 'C Deck:mon'
+          content: Allora...

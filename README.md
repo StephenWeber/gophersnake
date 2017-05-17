@@ -1,6 +1,6 @@
 # GopherSnake
 
-A gopher client written in Python.
+A (simple) gopher server written in Python.
 
 # Installation
 
@@ -23,6 +23,12 @@ You should then have the command `gophersnake` installed on your (virtualenv) pa
 Alternatively, if you don't want to install it you can just use the `run_local` command:
 
     # ./run_local
+    Process started...
+    Connecting to localhost:7070
+
+You may also provide a filename of a YAML file detailing the Gopher entity structure. See `example_files/basic.yaml` for the general idea:
+
+    (venv) # ./run_local example_files/basic.yaml
     Process started...
     Connecting to localhost:7070
 

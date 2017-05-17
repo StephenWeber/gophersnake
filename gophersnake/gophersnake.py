@@ -1,6 +1,6 @@
 import socket
 
-from gophersnake.gopher import GopherFile, GopherDirectory, GopherRouter
+from gophersnake import gopher
 
 
 def make_socket() -> socket.socket:
@@ -13,18 +13,9 @@ def make_socket() -> socket.socket:
 
 
 class GopherServer:
-    def __init__(self):
-        self.items = [
-            GopherFile('Hello to my server', 'hello', 'Text for the hello file'),
-            GopherDirectory('Directory of Files', 'Subdir:Base', [
-                GopherFile('Subfile A', 'Subdir:A', 'All Alligators Appreciate Apples'),
-                GopherFile('Subfile B', 'Subdir:B', 'Buffalo Buffalo Buffalo Buffalo'),
-                GopherDirectory('Subdir C', 'C Deck:base', [
-                    GopherFile('Master of None', 'C Deck:mon', 'Allora...')
-                ])
-            ])
-        ]
-        self.router = GopherRouter(self.items, self.items)
+    def __init__(self, items):
+        self.items = items
+        self.router = gopher.GopherRouter(self.items, self.items)
 
     def match(self, input):
         decoded = input.decode()
@@ -36,11 +27,11 @@ class GopherServer:
             return 'Path not found.\r\n'
 
 
-def main():
+def main(items):
     print('Process started...')
     sock = make_socket()
     sock.listen(1)
-    g = GopherServer()
+    g = GopherServer(items)
     while True:
         conn, address = sock.accept()
         print('Received connection from address {}'.format(address))
@@ -51,6 +42,3 @@ def main():
             print('response {}'.format(response))
             conn.sendall(response)
 
-
-if __name__ == '__main__':
-    main()

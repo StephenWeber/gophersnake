@@ -1,5 +1,22 @@
 #!/usr/bin/env python3
 
-from gophersnake import gophersnake as gs
+from gophersnake import gophersnake as gs, gopher
 
-gs.main()
+import sys
+
+if __name__ == '__main__':
+    if len(sys.argv) >= 2:
+        filename = sys.argv[1]
+        data = gopher.load_from_file(filename)
+    else:
+        data = [
+            gopher.GopherFile('Hello to my server', 'hello', 'Text for the hello file'),
+            gopher.GopherDirectory('Directory of Files', 'Subdir:Base', [
+                gopher.GopherFile('Subfile A', 'Subdir:A', 'All Alligators Appreciate Apples'),
+                gopher.GopherFile('Subfile B', 'Subdir:B', 'Buffalo Buffalo Buffalo Buffalo'),
+                gopher.GopherDirectory('Subdir C', 'C Deck:base', [
+                    gopher.GopherFile('Master of None', 'C Deck:mon', 'Allora...')
+                ])
+            ])
+        ]
+    gs.main(data)
