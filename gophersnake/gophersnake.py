@@ -1,5 +1,7 @@
 import socket
 
+from gophersnake.gopher import GopherFile
+
 
 def make_socket() -> socket.socket:
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -11,7 +13,9 @@ def make_socket() -> socket.socket:
 
 class GopherServer:
     def __init__(self):
-        self.items = ['Hello to my server\thello\tlocalhost\t7070']
+        self.items = [
+            GopherFile('Hello to my server', 'hello', 'Text for the hello file'),
+        ]
 
     def match(self, input):
         if input == b'/\r\n' or input == b'\r\n':
