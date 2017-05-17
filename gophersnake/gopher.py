@@ -19,9 +19,26 @@ class GopherEntity:
 
 class GopherFile(GopherEntity):
     def __init__(self, name, path, content, server='localhost', port='7070'):
-        super().__init__(ENTITY_FILE, name, path, content, server, port)
+        super().__init__(ENTITY_FILE, name, path, [content], server, port)
 
 
-class GopherDirectory:
+class GopherDirectory(GopherEntity):
     def __init__(self, name, path, content, server='localhost', port='7070'):
         super().__init__(ENTITY_DIR, name, path, content, server, port)
+
+
+class GopherRouter:
+    """Take entities and handle lookup by paths."""
+    def __init__(self, root, all_entities):
+        self.root = root
+        self.routes = self._calculate_routes(all_entities)
+
+    def _calculate_routes(self, entities):
+        return {e.path: e for e in entities}
+
+    def get_entity(self, path):
+        print('Entity path requested {}'.format(path))
+        if path == '/' or path == '':
+            print('Returning root')
+            return self.root
+        return self.routes.get(path).content

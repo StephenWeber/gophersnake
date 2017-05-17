@@ -1,10 +1,11 @@
 import socket
 
-from gophersnake.gopher import GopherFile
+from gophersnake.gopher import GopherFile, GopherDirectory, GopherRouter
 
 
 def make_socket() -> socket.socket:
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)  # reuse addresses in "wait" status
     address = ('localhost', 7070)
     print('Connecting to {}:{}'.format(*address))
     s.bind(address)
@@ -15,15 +16,21 @@ class GopherServer:
     def __init__(self):
         self.items = [
             GopherFile('Hello to my server', 'hello', 'Text for the hello file'),
+            GopherDirectory('Directory of Files', 'Subdir:Base', [
+                GopherFile('Subfile A', 'Subdir:A', 'All Alligators Appreciate Apples'),
+                GopherFile('Subfile B', 'Subdir:B', 'Buffalo Buffalo Buffalo Buffalo')
+            ])
         ]
+        self.router = GopherRouter(self.items, self.items)
 
     def match(self, input):
-        if input == b'/\r\n' or input == b'\r\n':
-            return '\r\n'.join('0{}'.format(x) for x in self.items) + '\r\n.\r\n'
-        if input == b'hello\r\n':
-            return 'Text for the hello file'
+        decoded = input.decode()
+        bare = decoded.strip('\r\n')
+        entity = self.router.get_entity(bare)
+        if entity is not None:
+            return '\r\n'.join(str(e) for e in entity) + '\r\n'
         else:
-            return '.\r\n'
+            return 'Path not found.\r\n'
 
 
 def main():
