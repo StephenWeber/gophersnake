@@ -18,7 +18,10 @@ class GopherServer:
             GopherFile('Hello to my server', 'hello', 'Text for the hello file'),
             GopherDirectory('Directory of Files', 'Subdir:Base', [
                 GopherFile('Subfile A', 'Subdir:A', 'All Alligators Appreciate Apples'),
-                GopherFile('Subfile B', 'Subdir:B', 'Buffalo Buffalo Buffalo Buffalo')
+                GopherFile('Subfile B', 'Subdir:B', 'Buffalo Buffalo Buffalo Buffalo'),
+                GopherDirectory('Subdir C', 'C Deck:base', [
+                    GopherFile('Master of None', 'C Deck:mon', 'Allora...')
+                ])
             ])
         ]
         self.router = GopherRouter(self.items, self.items)

@@ -34,7 +34,13 @@ class GopherRouter:
         self.routes = self._calculate_routes(all_entities)
 
     def _calculate_routes(self, entities):
-        return {e.path: e for e in entities}
+        routes = {}
+        for e in entities:
+            routes[e.path] = e
+            if e.type == ENTITY_DIR:
+                sub_routes = self._calculate_routes(e.content)
+                routes.update(sub_routes)
+        return routes
 
     def get_entity(self, path):
         print('Entity path requested {}'.format(path))
